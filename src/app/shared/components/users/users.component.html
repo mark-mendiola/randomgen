@@ -1,0 +1,57 @@
+<div class="random-user panels">
+
+  <div class="panel panel-1">
+    
+    <div class="random-user-form">
+        <div class="form-fields">
+            <div class="form-field form-field-select">
+                <label for="gender" class="block-label">Gender</label>
+                <select #gender class="field" id="gender" class="field field-select">
+                <option *ngFor="let gender of genders" [value]="gender">{{ gender | titlecase }}</option>
+                </select>
+            </div>
+            <div class="form-field form-field-select">
+                <label for="nationality" class="block-label">Nationality</label>
+                <select #nationality class="field" id="nationality" class="field field-select">
+                    <option *ngFor="let ntly of nationalities" [value]="ntly">{{ ntly }}</option>
+                </select>
+            </div>
+            <div class="form-field form-field-number">
+                <label for="limit">Limit</label>
+                <input #limit type="number" id="limit" class="field field-number" [class.error]="limit.value > 12" />
+                <input-error class="help-block" *ngIf="limit.value > 12">
+                  You can only retrieve 12 names at a time
+                </input-error>
+            </div>
+            <div class="form-field form-field-checkbox">
+                <input #seed type="checkbox" id="seed" class="field field-checkbox" />
+                <label for="seed">Return same set (Seed)</label>
+            </div>
+            </div>
+            <div class="form-actions">
+            <div class="form-action">
+                <button class="button button-primary" (click)="generateUsers({
+                gender : gender.value,
+                nationality : nationality.value,
+                limit : limit.value,
+                seed : seed.value
+                })">Generate</button>
+                <button class="button" (click)="clearFields()">Clear</button>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  <div class="panel panel-2">
+    <div class="users">
+      <div *ngFor="let user of users" class="user">
+        <div class="user-pic"><img src="{{user.picture.large }}" /></div>
+        <div class="user-name"><strong>{{user.name.last | titlecase }}, {{user.name.first | titlecase }}</strong></div>
+        <div class="user-dob">Dob: {{user.dob.date}}</div>
+        <div class="user-phone">Tel: {{user.phone}}</div>
+        <div class="user-cell">Cel: {{user.cell}}</div>
+      </div>
+    </div>
+  </div>
+
+</div>
